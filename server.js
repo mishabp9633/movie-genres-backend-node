@@ -7,6 +7,7 @@ const customers=require('./router/customer-router')
 const user = require('./router/users-router')
 const movie = require('./router/movies-router')
 const rental = require('./router/rental-router')
+const auth = require('./router/auth-router')
 
 mongoose.set('strictQuery', false)
 
@@ -24,10 +25,11 @@ app.use('/api/customers', customers)
 app.use('/api/movies', movie)
 app.use('/api/rentals', rental)
 app.use('/api/users', user)
+app.use('/api/login', auth)
 
 
 //port declare
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 app.listen(port , ()=>{
  console.log(`connecting to srever${port}`);
 })
