@@ -6,6 +6,7 @@ const router = express.Router()
 const _ = require('lodash')
 const bcrypt = require('bcrypt')
 const Jwt = require('jsonwebtoken')
+const config = require('config')
 
 
 
@@ -25,7 +26,7 @@ router.post('/' , async (req,res)=>{
       if (!validpassword) return res.status(400).send(' Oops Invalid password... ')
        
       //token creation
-      const token = Jwt.sign({id: user._id},'JwtPrivateKey')
+      const token = Jwt.sign({id: user._id},config.get('JwtPrivateKey'))
     
      res.send(token)
      res.end()

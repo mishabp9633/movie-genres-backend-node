@@ -8,6 +8,12 @@ const user = require('./router/users-router')
 const movie = require('./router/movies-router')
 const rental = require('./router/rental-router')
 const auth = require('./router/auth-router')
+const config = require('config')
+
+if(!config.get('JwtPrivateKey')){
+    console.log('FATEL ERROR: JwtPrivateKey is not defined...')
+    process.exit(1)
+}
 
 mongoose.set('strictQuery', false)
 
