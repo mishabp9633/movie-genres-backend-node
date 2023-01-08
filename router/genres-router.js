@@ -3,13 +3,14 @@ const express=require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const {Genre,Validate} = require('../models/genres-model')
-
+const auth = require('../middleware/auth')
+const admin = require('../middleware/admin')
 
 
 
 
 //get all data
-router.get('/', async (req,res)=>{
+router.get('/',[auth,admin], async (req,res)=>{
     const genre = await Genre.find()
     res.send(genre)
     res.end()

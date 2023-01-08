@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt')
 
 
 
+
 router.post('/' , async (req,res)=>{
     const { error } =Validate (req.body)
     if(error){
@@ -29,7 +30,11 @@ router.post('/' , async (req,res)=>{
        user.password = await bcrypt.hash(user.password , salt)
        
      await user.save()
-     res.send(_.pick(user,['_id','username','email']))
+
+        const token = user.generateAuthToken()
+        // console.log(token);
+    //  const token = Jwt.sign({id: user._id},config.get('JwtPrivateKey'))
+        res.header('x-auth-token',token).send(_.pick(user,['_id','username','email']))
 
       //without lodash
     //  res.send(
