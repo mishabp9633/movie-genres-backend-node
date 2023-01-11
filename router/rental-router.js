@@ -2,11 +2,12 @@ const {Rental, Validate} = require('../models/rental-model');
 const {Movie} = require('../models/movies-model'); 
 const {Customer} = require('../models/customers-model'); 
 const mongoose = require('mongoose');
+// const Fawn = require('fawn')
 const express = require('express');
 const router = express.Router();
-const Fawn = require('fawn')
 
-Fawn.init('mongodb://localhost/vidly')
+
+// Fawn.init(mongoose)
 
 router.get('/', async (req, res) => {
   const rentals = await Rental.find().sort('-dateOut');
@@ -39,18 +40,18 @@ router.post('/', async (req, res) => {
   });
 
  try{
-  new Fawn.Task()
-  .save('rentals', rental)
-  .update('movies', {_id: movie._id},{
-   $inc:{ numberInStock: -1 }
-  })
-  .run()
+  // await new Fawn.Task()
+  // .save('rentals', rental)
+  // .update('movies', {_id: movie._id},{
+  //  $inc:{ numberInStock: -1 }
+  // })
+  // .run()
 
 
-  // rental = await rental.save();
+  rental = await rental.save();
 
-  // movie.numberInStock--;
-  // movie.save();
+  movie.numberInStock--;
+  movie.save();
   
   res.send(rental);    
  }

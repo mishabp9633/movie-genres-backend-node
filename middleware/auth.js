@@ -13,6 +13,6 @@ const config = require('config')
        next()
     }
     catch (ex){
-        res.status(402).send('invalid token')
+        res.status(401).send('invalid token')
     }
 }

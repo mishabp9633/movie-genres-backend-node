@@ -4,16 +4,28 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const {Genre,Validate} = require('../models/genres-model')
 const auth = require('../middleware/auth')
-const admin = require('../middleware/admin')
+
+// const asyncMiddleware=require('../middleware/async')
+// const admin = require('../middleware/admin')
 
 
+//example of asyncMidddleware
+// router.get('/', asyncMiddleware( async (req,res)=>{
+
+//     const genre = await Genre.find()
+//     res.send(genre)
+//     res.end()
+
+// }))
 
 
 //get all data
-router.get('/',[auth,admin], async (req,res)=>{
-    const genre = await Genre.find()
-    res.send(genre)
-    res.end()
+router.get('/', async (req,res)=>{
+
+        const genre = await Genre.find()
+        res.send(genre)
+        res.end()
+    
 })
 
 
