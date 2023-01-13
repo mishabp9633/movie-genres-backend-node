@@ -9,8 +9,9 @@ router.get('/', async (req, res) => {
   res.send(movies);
 });
 
-router.post('/', async (req, res) => {
-  const { error } = Validate(req.body); 
+router.post('/',async (req, res) => {
+
+  const {error} = Validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
   const genre = await Genre.findById(req.body.genreId);

@@ -1,5 +1,5 @@
 //require modules
-require('express-async-errors')
+// require('express-async-errors')
 const mongoose = require('mongoose')
 const express=require('express')
 const app =express()
@@ -9,8 +9,8 @@ const user = require('./router/users-router')
 const movie = require('./router/movies-router')
 const rental = require('./router/rental-router')
 const auth = require('./router/auth-router')
+const owner = require('./router/owner-router')
 const config = require('config')
-const fawn = require('fawn')
 const dotenv= require('dotenv').config()
 const error = require('./middleware/error')
  
@@ -37,9 +37,10 @@ app.use('/api/movies', movie)
 app.use('/api/rentals', rental)
 app.use('/api/users', user)
 app.use('/api/login', auth)
+app.use('/api/owner',owner)
 
 //error handling
-app.use(error)
+// app.use(error)
 
 
 //port declare

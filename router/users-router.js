@@ -21,7 +21,7 @@ router.post('/' , async (req,res)=>{
 
 
         user = new User (
-        _.pick(req.body,['username','email','password'])
+        _.pick(req.body,['username','email','password','role'])
         // username:req.body.username ,
         // email: req.body.email , 
         // password:req.body.password 
@@ -34,7 +34,7 @@ router.post('/' , async (req,res)=>{
         const token = user.generateAuthToken()
         // console.log(token);
     //  const token = Jwt.sign({id: user._id},config.get('JwtPrivateKey'))
-        res.header('x-auth-token',token).send(_.pick(user,['_id','username','email']))
+        res.header('x-auth-token',token).send(_.pick(user,['_id','username','email','role']))
 
       //without lodash
     //  res.send(

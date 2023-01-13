@@ -25,13 +25,18 @@ const userSchema = new mongoose.Schema({
         minlength:3,
         maxlength:1025
     },
+    role:{
+        type:String,
+        required:true
+    },
     isAdmin: {
         type:Boolean
     }
+   
 })
 
 userSchema.methods.generateAuthToken =function () {
-    const token = Jwt.sign({id: this._id, isAdmin: this.isAdmin},config.get('JwtPrivateKey')) 
+    const token = Jwt.sign({id: this._id, isAdmin: this.isAdmin , role: this.role},config.get('JwtPrivateKey')) 
     return token
 }
 
@@ -39,15 +44,16 @@ const User = mongoose.model('User' , userSchema )
 
 
 function Validate(user) {
-    const schema={ 
+    const schema=Joi.object({ 
         username:Joi.string().min(3).max(50).required(),
         email:Joi.string().min(3).max(255).email().required(),
-        password:Joi.string().min(3).max(255).required()
-    }
+        password:Joi.string().min(3).max(255).required(),
+        role:Joi.string().required()
+    })
  
-   return Joi.validate(user,schema) 
+   return schema.validate(user) 
 }
 
-
+exports.userSchema=userSchema
 exports.Validate=Validate
 exports.User=User

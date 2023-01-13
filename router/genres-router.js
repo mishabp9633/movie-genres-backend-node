@@ -4,9 +4,9 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const {Genre,Validate} = require('../models/genres-model')
 const auth = require('../middleware/auth')
+// const admin = require('../middleware/admin')
 
 // const asyncMiddleware=require('../middleware/async')
-// const admin = require('../middleware/admin')
 
 
 //example of asyncMidddleware
@@ -40,7 +40,8 @@ router.get('/:id' , async (req,res)=>{
 })
 
 //post data
-router.post('/' , async (req,res)=>{
+router.post('/' ,async (req,res)=>{
+    
 
     const { error } =Validate (req.body)
 
